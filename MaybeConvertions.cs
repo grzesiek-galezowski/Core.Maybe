@@ -43,7 +43,7 @@ namespace Functional.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> ReturnList<T>(this Maybe<T> a) => a.ToEnumerable();
+		public static IEnumerable<T> ReturnList<T>(this Maybe<T> a) { return a.ToEnumerable(); }
 		/// <summary>
 		/// If <paramref name="a"/>.Value is present, returns an enumerable of that single value, otherwise an empty one
 		/// </summary>

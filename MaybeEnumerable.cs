@@ -222,7 +222,9 @@ namespace Functional.Maybe
 		/// <param name="others"></param>
 		/// <returns></returns>
 		public static IEnumerable<T> Union<T>(this Maybe<T> @this, params Maybe<T>[] others)
-			=> @this.Union(others.WhereValueExist());
+		{
+			return @this.Union(others.WhereValueExist());
+		}
 
 		/// <summary>
 		/// Combines the current value, if exists, with passed IEnumerable
