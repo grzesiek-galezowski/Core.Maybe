@@ -32,4 +32,8 @@
 		<copyright>Copyright 2015</copyright>
 		<tags> option, maybe, linq, fluent, functional </tags>
 	</metadata>
+	<files>
+		<file src="bin\Release\Functional.Maybe.dll" target="lib\portable-net40+win8"/>
+		<file src="bin\Release\Functional.Maybe.dll" target="lib\net45"/>
+	</files>
 </package>

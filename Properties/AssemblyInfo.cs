@@ -16,4 +16,4 @@ using System.Reflection;
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: CLSCompliant(true)]
 
-[assembly: AssemblyVersion("1.1.0")]
+[assembly: AssemblyVersion("1.1.1")]
