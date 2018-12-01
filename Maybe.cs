@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
@@ -26,7 +27,7 @@ namespace Functional.Maybe
 	/// </example>
 	/// <typeparam name="T"></typeparam>
 	[DataContract]
-	public struct Maybe<T> : IEquatable<Maybe<T>>
+	public struct Maybe<T> : IEquatable<Maybe<T>>, IEnumerable<T>
 	{
 		/// <summary>
 		/// Nothing value.
@@ -96,6 +97,22 @@ namespace Functional.Maybe
 			{
 				return (EqualityComparer<T>.Default.GetHashCode(_value)*397) ^ _hasValue.GetHashCode();
 			}
+		}
+
+		private IEnumerable<T> EnumerableValue()
+		{
+			if (HasValue)
+				yield return Value;
+		}
+
+		public IEnumerator<T> GetEnumerator()
+		{
+			return EnumerableValue().GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return EnumerableValue().GetEnumerator();
 		}
 
 		public static bool operator ==(Maybe<T> left, Maybe<T> right)
