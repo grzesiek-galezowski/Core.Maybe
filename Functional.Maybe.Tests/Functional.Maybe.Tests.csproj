@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MaybeAsyncTests.cs" />
     <Compile Include="MaybeEnumeratorTests.cs" />
     <Compile Include="SideEffectsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
