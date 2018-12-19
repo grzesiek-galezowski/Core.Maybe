@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace Functional.Maybe
 {
@@ -16,13 +15,11 @@ namespace Functional.Maybe
 		/// <typeparam name="TB"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static Maybe<TB> Cast<TA, TB>(this Maybe<TA> a) where TB : class
-		{
-			return from m in a
-			       let t = m as TB
-			       where t != null
-			       select t;
-		}
+		public static Maybe<TB> Cast<TA, TB>(this Maybe<TA> a) where TB : class =>
+			from m in a
+			let t = m as TB
+			where t != null
+			select t;
 
 		/// <summary>
 		/// If <paramref name="a"/> can be successfully casted to <typeparamref name="TR"/>, returns the casted one, wrapped as Maybe&lt;TR&gt;, otherwise Nothing
@@ -31,19 +28,9 @@ namespace Functional.Maybe
 		/// <typeparam name="TR"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static Maybe<TR> MaybeCast<T, TR>(this T a) where TR : T
-		{
-			return MaybeFunctionalWrappers.Catcher<T, TR, InvalidCastException>(o => (TR)o)(a);
-		}
+		public static Maybe<TR> MaybeCast<T, TR>(this T a) where TR : T =>
+			MaybeFunctionalWrappers.Catcher<T, TR, InvalidCastException>(o => (TR)o)(a);
 
-		[Obsolete("Just use ToEnumerable instead")]
-		/// <summary>
-		/// If <paramref name="a"/>.Value is present, returns a list of that single value, otherwise an empty list
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="a"></param>
-		/// <returns></returns>
-		public static IEnumerable<T> ReturnList<T>(this Maybe<T> a) { return a.ToEnumerable(); }
 		/// <summary>
 		/// If <paramref name="a"/>.Value is present, returns an enumerable of that single value, otherwise an empty one
 		/// </summary>
@@ -56,30 +43,14 @@ namespace Functional.Maybe
 				yield return a.Value;
 		}
 
-		[Obsolete("Just use FirstMaybe instead")]
-		/// <summary>
-		/// If <paramref name="xs"/> contains any items, returns first one wrapped as Maybe, elsewhere returns Nothing
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="xs"></param>
-		/// <returns></returns>
-		public static Maybe<T> ToMaybeFromList<T>(this IEnumerable<T> xs)
-		{
-			Contract.Requires(xs != null);
-
-			return xs.FirstMaybe();
-		}
-
 		/// <summary>
 		/// Converts Maybe to corresponding Nullable
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static T? ToNullable<T>(this Maybe<T> a) where T : struct
-		{
-			return a.IsSomething() ? a.Value : new T?();
-		}
+		public static T? ToNullable<T>(this Maybe<T> a) where T : struct =>
+			a.IsSomething() ? a.Value : default;
 
 		/// <summary>
 		/// Converts Nullable to corresponding Maybe
@@ -87,12 +58,8 @@ namespace Functional.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static Maybe<T> ToMaybe<T>(this T? a) where T : struct
-		{
-			if (!a.HasValue)
-				return Maybe<T>.Nothing;
-			return a.Value.ToMaybe();
-		}
+		public static Maybe<T> ToMaybe<T>(this T? a) where T : struct =>
+			!a.HasValue ? default : a.Value.ToMaybe();
 
 		/// <summary>
 		/// Returns <paramref name="a"/> wrapped as Maybe
@@ -100,13 +67,7 @@ namespace Functional.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static Maybe<T> ToMaybe<T>(this T a)
-		{
-			// ReSharper disable CompareNonConstrainedGenericWithNull
-			if (a == null)
-				return Maybe<T>.Nothing;
-			return new Maybe<T>(a);
-			// ReSharper restore CompareNonConstrainedGenericWithNull
-		}
+		public static Maybe<T> ToMaybe<T>(this T a) =>
+			a == null ? default : new Maybe<T>(a);
 	}
 }

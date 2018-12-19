@@ -24,16 +24,13 @@ namespace Functional.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="tryer"></param>
 		/// <returns></returns>
-		public static Func<T, Maybe<TR>> Wrap<T, TR>(TryGet<T, TR> tryer)
+		public static Func<T, Maybe<TR>> Wrap<T, TR>(TryGet<T, TR> tryer) => (T arg) =>
 		{
-			return s =>
-				{
-					TR result;
-					return tryer(s, out result)
-						       ? result.ToMaybe()
-						       : Maybe<TR>.Nothing;
-				};
-		}
+			TR result;
+			return tryer(arg, out result)
+				? result.ToMaybe()
+				: Maybe<TR>.Nothing;
+		};
 
 		/// <summary>
 		/// Returns a function which calls <paramref name="f"/>, wrapped inside a try-catch clause with <typeparamref name="TEx"/> catched. 
@@ -44,19 +41,16 @@ namespace Functional.Maybe
 		/// <typeparam name="TEx"></typeparam>
 		/// <param name="f"></param>
 		/// <returns></returns>
-		public static Func<TA, Maybe<TR>> Catcher<TA, TR, TEx>(Func<TA, TR> f) where TEx : Exception
+		public static Func<TA, Maybe<TR>> Catcher<TA, TR, TEx>(Func<TA, TR> f) where TEx : Exception => (TA arg) =>
 		{
-			return a =>
-				{
-					try
-					{
-						return f(a).ToMaybe();
-					}
-					catch (TEx)
-					{
-						return Maybe<TR>.Nothing;
-					}
-				};
-		}
+			try
+			{
+				return f(arg).ToMaybe();
+			}
+			catch (TEx)
+			{
+				return default;
+			}
+		};
 	}
 }

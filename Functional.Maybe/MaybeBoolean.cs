@@ -14,12 +14,8 @@ namespace Functional.Maybe
 		/// <param name="condition"></param>
 		/// <param name="f"></param>
 		/// <returns></returns>
-		public static Maybe<T> Then<T>(this bool condition, Func<T> f)
-		{
-			// ReSharper disable CompareNonConstrainedGenericWithNull
-			return condition ? f().ToMaybe() : Maybe<T>.Nothing;
-			// ReSharper restore CompareNonConstrainedGenericWithNull
-		}
+		public static Maybe<T> Then<T>(this bool condition, Func<T> f) =>
+			condition ? f().ToMaybe() : default;
 
 		/// <summary>
 		/// If <paramref name="condition"/> returns <paramref name="t"/> as Maybe, otherwise Nothing
@@ -28,12 +24,8 @@ namespace Functional.Maybe
 		/// <param name="condition"></param>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		public static Maybe<T> Then<T>(this bool condition, T t)
-		{
-			// ReSharper disable CompareNonConstrainedGenericWithNull
-			return condition ? t.ToMaybe() : Maybe<T>.Nothing;
-			// ReSharper restore CompareNonConstrainedGenericWithNull
-		}
+		public static Maybe<T> Then<T>(this bool condition, T t) =>
+			condition ? t.ToMaybe() : default;
 
 		/// <summary>
 		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybe()

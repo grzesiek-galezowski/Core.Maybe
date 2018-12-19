@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Functional.Maybe.Tests
 {
@@ -13,7 +8,7 @@ namespace Functional.Maybe.Tests
 		[TestMethod]
 		public void MaybeWithValueEnumerates()
 		{
-			var m = 1.ToMaybe();
+			var m = 1.ToMaybe().ToEnumerable();
 			int c = 0;
 			foreach (var val in m)
 				c++;
@@ -26,7 +21,7 @@ namespace Functional.Maybe.Tests
 		public void EmptyDoesntEnumerate()
 		{
 			bool gotHere = false;
-			foreach (var val in Maybe<bool>.Nothing)
+			foreach (var val in Maybe<bool>.Nothing.ToEnumerable())
 				gotHere = true;
 			Assert.IsFalse(gotHere);
 		}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace Functional.Maybe
 {
@@ -18,18 +17,16 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<TResult> Select<T, TResult>(this Maybe<T> a, Func<T, TResult> fn)
 		{
-			Contract.Requires(fn != null);
-
 			if (a.HasValue)
 			{
 				var result = fn(a.Value);
 
 				return result != null
 					? new Maybe<TResult>(result)
-					: Maybe<TResult>.Nothing;
+					: default;
 			}
 			else
-				return Maybe<TResult>.Nothing;
+				return default;
 		}
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns the result, otherwise returns <paramref name="else"/>()
@@ -40,13 +37,8 @@ namespace Functional.Maybe
 		/// <param name="fn"></param>
 		/// <param name="else"></param>
 		/// <returns></returns>
-		public static TResult SelectOrElse<T, TResult>(this Maybe<T> a, Func<T, TResult> fn, Func<TResult> @else)
-		{
-			Contract.Requires(fn != null);
-			Contract.Requires(@else != null);
-
-			return a.HasValue ? fn(a.Value) : @else();
-		}
+		public static TResult SelectOrElse<T, TResult>(this Maybe<T> a, Func<T, TResult> fn, Func<TResult> @else) => 
+			a.HasValue ? fn(a.Value) : @else();
 		/// <summary>
 		/// If <paramref name="a"/> has value, and it fulfills the <paramref name="predicate"/>, returns <paramref name="a"/>, otherwise returns Nothing
 		/// </summary>
@@ -54,18 +46,8 @@ namespace Functional.Maybe
 		/// <param name="a"></param>
 		/// <param name="predicate"></param>
 		/// <returns></returns>
-		public static Maybe<T> Where<T>(this Maybe<T> a, Func<T, bool> predicate)
-		{
-			Contract.Requires(predicate != null);
-
-			if (!a.HasValue)
-				return a;
-
-			if (predicate(a.Value))
-				return a;
-
-			return Maybe<T>.Nothing;
-		}
+		public static Maybe<T> Where<T>(this Maybe<T> a, Func<T, bool> predicate) => 
+			a.HasValue && predicate(a.Value) ? a : default;
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns, otherwise returns Nothing
 		/// </summary>
@@ -74,14 +56,8 @@ namespace Functional.Maybe
 		/// <param name="a"></param>
 		/// <param name="fn"></param>
 		/// <returns></returns>
-		public static Maybe<TR> SelectMany<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn)
-		{
-			Contract.Requires(fn != null);
-
-			if (!a.HasValue)
-				return Maybe<TR>.Nothing;
-			return fn(a.Value);
-		}
+		public static Maybe<TR> SelectMany<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn) => 
+			a.HasValue ? fn(a.Value) : default;
 
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it, and if the result also has value, calls <paramref name="composer"/> on both values 
@@ -94,10 +70,8 @@ namespace Functional.Maybe
 		/// <param name="fn"></param>
 		/// <param name="composer"></param>
 		/// <returns></returns>
-		public static Maybe<TResult> SelectMany<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer)
-		{
-			return a.SelectMany(x => fn(x).SelectMany(y => composer(x, y).ToMaybe()));
-		}
+		public static Maybe<TResult> SelectMany<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer) => 
+			a.SelectMany(x => fn(x).SelectMany(y => composer(x, y).ToMaybe()));
 
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns, otherwise returns Nothing. Alias for SelectMany.
@@ -107,10 +81,8 @@ namespace Functional.Maybe
 		/// <param name="a"></param>
 		/// <param name="fn"></param>
 		/// <returns></returns>
-		public static Maybe<TR> SelectMaybe<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn)
-		{
-			return a.SelectMany(fn);
-		}
+		public static Maybe<TR> SelectMaybe<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn) =>
+			a.SelectMany(fn);
 
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it, and if the result also has value, calls <paramref name="composer"/> on both values 
@@ -123,9 +95,7 @@ namespace Functional.Maybe
 		/// <param name="fn"></param>
 		/// <param name="composer"></param>
 		/// <returns></returns>
-		public static Maybe<TResult> SelectMaybe<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer)
-		{
-			return a.SelectMany(fn, composer);
-		}
+		public static Maybe<TResult> SelectMaybe<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer) =>
+			a.SelectMany(fn, composer);
 	}
 }

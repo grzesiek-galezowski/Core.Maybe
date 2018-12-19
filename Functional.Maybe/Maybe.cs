@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Runtime.Serialization;
 
 namespace Functional.Maybe
 {
@@ -26,13 +24,12 @@ namespace Functional.Maybe
 	/// var result = (from a in list.FirstMaybe() from b in list.LastMaybe() select a + b).OrElse(-5);
 	/// </example>
 	/// <typeparam name="T"></typeparam>
-	[DataContract]
-	public struct Maybe<T> : IEquatable<Maybe<T>>, IEnumerable<T>
+	public readonly struct Maybe<T> : IEquatable<Maybe<T>>
 	{
 		/// <summary>
 		/// Nothing value.
 		/// </summary>
-		public static readonly Maybe<T> Nothing = new Maybe<T>();
+		public static readonly Maybe<T> Nothing = default;
 
 		/// <summary>
 		/// The value, stored in the monad. Can be accessed only if is really present, otherwise throws
@@ -49,83 +46,48 @@ namespace Functional.Maybe
 		/// <summary>
 		/// The flag of value presence
 		/// </summary>
-		public bool HasValue { get { return _hasValue; } }
+		public bool HasValue { get; }
 
 		/// <inheritdoc />
-		public override string ToString()
-		{
-			if (!HasValue)
-			{
-				return "<Nothing>";
-			}
-
-			return Value.ToString();
-		}
+		public override string ToString() => !HasValue ? "<Nothing>" : Value.ToString();
 
 		/// <summary>
 		/// Automatical flattening of the monad-in-monad
 		/// </summary>
 		/// <param name="doubleMaybe"></param>
 		/// <returns></returns>
-		public static implicit operator Maybe<T>(Maybe<Maybe<T>> doubleMaybe)
-		{
-			return doubleMaybe.HasValue ? doubleMaybe.Value : Nothing;
-		}
+		public static implicit operator Maybe<T>(Maybe<Maybe<T>> doubleMaybe) =>
+			doubleMaybe.HasValue ? doubleMaybe.Value : Nothing;
 
 		internal Maybe(T value)
 		{
-			Contract.Requires(value != null);
-
 			_value = value;
-			_hasValue = true;
+			HasValue = true;
 		}
 
-		public bool Equals(Maybe<T> other)
-		{
-			return EqualityComparer<T>.Default.Equals(_value, other._value) && _hasValue.Equals(other._hasValue);
-		}
+		public bool Equals(Maybe<T> other) => 
+			EqualityComparer<T>.Default.Equals(_value, other._value) && HasValue.Equals(other.HasValue);
 
 		public override bool Equals(object obj)
 		{
 			if (ReferenceEquals(null, obj)) return false;
-			return obj is Maybe<T> && Equals((Maybe<T>) obj);
+			return obj is Maybe<T> mb && Equals(mb);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				return (EqualityComparer<T>.Default.GetHashCode(_value)*397) ^ _hasValue.GetHashCode();
+				return (EqualityComparer<T>.Default.GetHashCode(_value)*397) ^ HasValue.GetHashCode();
 			}
 		}
 
-		private IEnumerable<T> EnumerableValue()
-		{
-			if (HasValue)
-				yield return Value;
-		}
+		public static bool operator ==(Maybe<T> left, Maybe<T> right) =>
+			left.Equals(right);
 
-		public IEnumerator<T> GetEnumerator()
-		{
-			return EnumerableValue().GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return EnumerableValue().GetEnumerator();
-		}
-
-		public static bool operator ==(Maybe<T> left, Maybe<T> right)
-		{
-			return left.Equals(right);
-		}
-
-		public static bool operator !=(Maybe<T> left, Maybe<T> right)
-		{
-			return !left.Equals(right);
-		}
+		public static bool operator !=(Maybe<T> left, Maybe<T> right) =>
+			!left.Equals(right);
 
 		private readonly T _value;
-		private readonly bool _hasValue;
 	}
 }
