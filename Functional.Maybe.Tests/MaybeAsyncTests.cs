@@ -7,13 +7,13 @@ namespace Functional.Maybe.Tests
 	public class MaybeAsyncTests
 	{
 		[TestMethod]
-		public async void SelectAsyncTest()
+		public async Task SelectAsyncTest()
 		{
 			Task<int> two() => Task.FromResult(2);
 
 			var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await two()));
 
-			Assert.AreEqual(3, onePlusTwo);
+			Assert.AreEqual(3, onePlusTwo.Value);
 		}
 	}
 }
