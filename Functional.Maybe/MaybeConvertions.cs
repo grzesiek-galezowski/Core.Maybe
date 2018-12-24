@@ -50,7 +50,7 @@ namespace Functional.Maybe
 		/// <param name="a"></param>
 		/// <returns></returns>
 		public static T? ToNullable<T>(this Maybe<T> a) where T : struct =>
-			a.IsSomething() ? a.Value : default;
+			a.IsSomething() ? a.Value : (T?)null;
 
 		/// <summary>
 		/// Converts Nullable to corresponding Maybe
