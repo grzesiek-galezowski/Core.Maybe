@@ -1,4 +1,4 @@
-﻿using Functional.Maybe.Either;
+﻿using Functional.Either;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -7,15 +7,15 @@ namespace Functional.Maybe.Tests
     [TestClass]
     public class EitherTests
     {
-        private readonly Either<int, string> _eitherLeft;
-        private readonly Either<int, string> _eitherRight;
+        private readonly Either<int, string> _eitherResult;
+        private readonly Either<int, string> _eitherError;
         private const int _eitherLeftValue = 5;
         private const string _eitherRightValue = "Five";
 
         public EitherTests()
         {
-            _eitherLeft = new Either<int, string>(_eitherLeftValue);
-            _eitherRight = new Either<int, string>(_eitherRightValue);
+            _eitherResult = _eitherLeftValue.ToResult<int, string>();
+            _eitherError = _eitherRightValue.ToError<int, string>();
         }
 
         [TestMethod]
@@ -30,17 +30,17 @@ namespace Functional.Maybe.Tests
             Action nullAction = null;
             Action mockAction = () => { var a = 1; };
 
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherLeft.Match(nullAction, mockAction));
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherLeft.Match(mockAction, nullAction));
-            _eitherLeft.Match(mockAction, mockAction);
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(nullAction, mockAction));
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(mockAction, nullAction));
+            _eitherResult.Match(mockAction, mockAction);
 
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(nullAction, mockAction));
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(mockAction, nullAction));
-            _eitherRight.Match(mockAction, mockAction);
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullAction, mockAction));
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(mockAction, nullAction));
+            _eitherError.Match(mockAction, mockAction);
 
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(nullActionInt, mockActionString));
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(mockActionInt, nullActionString));
-            _eitherLeft.Match(mockActionInt, mockActionString);
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullActionInt, mockActionString));
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(mockActionInt, nullActionString));
+            _eitherResult.Match(mockActionInt, mockActionString);
         }
 
         [TestMethod]
@@ -65,22 +65,22 @@ namespace Functional.Maybe.Tests
             Action<int> setTestInt = value => testInt = value;
             Action<string> setTestString = value => testString = value;
 
-            _eitherLeft.Match(setBool1Action, setBool2Action);
+            _eitherResult.Match(setBool1Action, setBool2Action);
             Assert.IsTrue(bool1);
             Assert.IsFalse(bool2);
 
             resetTestValues();
-            _eitherRight.Match(setBool1Action, setBool2Action);
+            _eitherError.Match(setBool1Action, setBool2Action);
             Assert.IsFalse(bool1);
             Assert.IsTrue(bool2);
 
             resetTestValues();
-            _eitherLeft.Match(setTestInt, setTestString);
+            _eitherResult.Match(setTestInt, setTestString);
             Assert.AreEqual(_eitherLeftValue, testInt);
             Assert.AreEqual(null, testString);
 
             resetTestValues();
-            _eitherRight.Match(setTestInt, setTestString);
+            _eitherError.Match(setTestInt, setTestString);
             Assert.AreEqual(0, testInt);
             Assert.AreEqual(_eitherRightValue, testString);
 
@@ -111,57 +111,57 @@ namespace Functional.Maybe.Tests
                 return false;
             };
 
-            Assert.IsTrue(_eitherLeft.Match(funcTLT, funcTRT));
+            Assert.IsTrue(_eitherResult.Match(funcTLT, funcTRT));
             Assert.AreEqual(_eitherLeftValue, testInt);
             Assert.AreEqual(null, testString);
 
             resetTestValues();
-            Assert.IsFalse(_eitherRight.Match(funcTLT, funcTRT));
+            Assert.IsFalse(_eitherError.Match(funcTLT, funcTRT));
             Assert.AreEqual(_eitherRightValue, testString);
             Assert.AreEqual(0, testInt);
 
             resetTestValues();
-            Assert.IsTrue(_eitherLeft.Match(() => true, () => false));
-            Assert.IsFalse(_eitherRight.Match(() => true, () => false));
+            Assert.IsTrue(_eitherResult.Match(() => true, () => false));
+            Assert.IsFalse(_eitherError.Match(() => true, () => false));
         }
 
         [TestMethod]
-        public void LeftOrDefaultAndRightOrDefaultTests()
+        public void OrDefaultFunctionsTests()
         {
-            Assert.AreEqual(_eitherLeftValue, _eitherLeft.LeftOrDefault());
-            Assert.AreEqual(_eitherRightValue, _eitherRight.RightOrDefault());
+            Assert.AreEqual(_eitherLeftValue, _eitherResult.ResultOrDefault());
+            Assert.AreEqual(_eitherRightValue, _eitherError.ErrorOrDefault());
 
-            Assert.AreEqual(default, _eitherRight.LeftOrDefault());
-            Assert.AreEqual(default, _eitherLeft.RightOrDefault());
+            Assert.AreEqual(default, _eitherError.ResultOrDefault());
+            Assert.AreEqual(default, _eitherResult.ErrorOrDefault());
 
-            Assert.AreEqual(29, _eitherRight.LeftOrDefault(29));
-            Assert.AreEqual("Twenty nine", _eitherLeft.RightOrDefault("Twenty nine"));
+            Assert.AreEqual(29, _eitherError.ResultOrDefault(29));
+            Assert.AreEqual("Twenty nine", _eitherResult.ErrorOrDefault("Twenty nine"));
         }
 
         [TestMethod]
-        public void SameTLTRTests()
+        public void SameTResultTErrorTests()
         {
-            var eitherLeft = Either<string, string>.CreateLeft("Left defined");
-            var eitherRight = Either<string, string>.CreateRight("Right defined");
+            var eitherResult = Either<string, string>.Result("Left defined");
+            var eitherError = Either<string, string>.Error("Right defined");
 
-            Assert.AreEqual("Left defined", eitherLeft.LeftOrDefault());
-            Assert.AreEqual("Right defined", eitherRight.RightOrDefault());
+            Assert.AreEqual("Left defined", eitherResult.ResultOrDefault());
+            Assert.AreEqual("Right defined", eitherError.ErrorOrDefault());
 
-            Assert.AreEqual(null, eitherRight.LeftOrDefault());
-            Assert.AreEqual(null, eitherLeft.RightOrDefault());
+            Assert.AreEqual(null, eitherError.ResultOrDefault());
+            Assert.AreEqual(null, eitherResult.ErrorOrDefault());
         }
 
         [TestMethod]
         public void ExtensionMethodTests()
         {
-            var eitherLeft = 29.ToEitherLeft<int, string>();
-            var eitherRight = "Twenty nine".ToEitherRight<int, string>();
+            var eitherResult = 29.ToResult<int, string>();
+            var eitherError = "Twenty nine".ToError<int, string>();
 
-            Assert.AreEqual(29, eitherLeft.LeftOrDefault());
-            Assert.AreEqual(null, eitherLeft.RightOrDefault());
+            Assert.AreEqual(29, eitherResult.ResultOrDefault());
+            Assert.AreEqual(null, eitherResult.ErrorOrDefault());
 
-            Assert.AreEqual("Twenty nine", eitherRight.RightOrDefault());
-            Assert.AreEqual(0, eitherRight.LeftOrDefault());
+            Assert.AreEqual("Twenty nine", eitherError.ErrorOrDefault());
+            Assert.AreEqual(0, eitherError.ResultOrDefault());
         }
     }
 
