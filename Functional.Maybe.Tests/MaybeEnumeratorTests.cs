@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Functional.Maybe.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class MaybeEnumeratorTests
 	{
-		[TestMethod]
+		[Test]
 		public void MaybeWithValueEnumerates()
 		{
 			var m = 1.ToMaybe().ToEnumerable();
@@ -17,7 +17,7 @@ namespace Functional.Maybe.Tests
 			Assert.IsTrue(c == 2);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyDoesntEnumerate()
 		{
 			bool gotHere = false;

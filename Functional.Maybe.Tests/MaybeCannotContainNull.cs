@@ -1,9 +1,9 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Functional.Maybe.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class MaybeCannotContainNull
 	{
 		private class User
@@ -11,7 +11,7 @@ namespace Functional.Maybe.Tests
 			public string Name { get; set; }
 		}
 
-		[TestMethod]
+		[Test]
 		public void WhenSelectingNull_GettingNothing()
 		{
 			var user = new User { Name = null };

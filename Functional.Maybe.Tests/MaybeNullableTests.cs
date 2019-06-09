@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 
 namespace Functional.Maybe.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class MaybeNullableTests
 	{
-		[TestMethod]
+		[Test]
 		public void ToNullableTest()
 		{
 			var nothing = Maybe<Guid>.Nothing;

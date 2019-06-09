@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.Maybe.Tests", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.Maybe", "Functional.Maybe\Functional.Maybe.csproj", "{3A312E5A-9388-4A9C-995F-EFD7A1A5751B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.Maybe.Json", "Functional.Maybe.Json\Functional.Maybe.Json.csproj", "{30BDC38F-65CC-402B-B85D-EEA09DCFA69C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3A312E5A-9388-4A9C-995F-EFD7A1A5751B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A312E5A-9388-4A9C-995F-EFD7A1A5751B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A312E5A-9388-4A9C-995F-EFD7A1A5751B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30BDC38F-65CC-402B-B85D-EEA09DCFA69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30BDC38F-65CC-402B-B85D-EEA09DCFA69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30BDC38F-65CC-402B-B85D-EEA09DCFA69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BDC38F-65CC-402B-B85D-EEA09DCFA69C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

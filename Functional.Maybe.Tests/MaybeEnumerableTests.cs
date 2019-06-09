@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Linq;
 
 namespace Functional.Maybe.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class MaybeEnumerableTests
 	{
-		[TestMethod]
+		[Test]
 		public void WhereValueExist_Should_remove_Nothing_values()
 		{
 			var sequence = new Maybe<int>[] { 1.ToMaybe(), Maybe<int>.Nothing, 2.ToMaybe() };
@@ -22,7 +22,7 @@ namespace Functional.Maybe.Tests
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void Given_ThreeSome_UnionReturnsCollectionOfAll()
 		{
 			var one = 1.ToMaybe();
@@ -34,7 +34,7 @@ namespace Functional.Maybe.Tests
 			Assert.IsTrue(res.SequenceEqual(new[] { 1, 2, 3 }));
 		}
 
-		[TestMethod]
+		[Test]
 		public void Given_OneSome_UnionReturnsCollectionOfOne()
 		{
 			var one = 1.ToMaybe();
@@ -45,7 +45,7 @@ namespace Functional.Maybe.Tests
 			Assert.IsTrue(res.SequenceEqual(new[] { 1 }));
 		}
 
-		[TestMethod]
+		[Test]
 		public void Given_CollectionAndSome_UnionReturnsCollectionPlusSome()
 		{
 			var one = new[] { 1, 3 };
@@ -56,7 +56,7 @@ namespace Functional.Maybe.Tests
 			Assert.IsTrue(res.SequenceEqual(new[] { 1, 3, 2 }));
 		}
 
-        [TestMethod]
+       [Test]
 	    public void FirstMaybe_WhenCalledOnEmptyEnumerable_ReturnsNothing()
         {
             var maybe = Enumerable.Empty<object>().FirstMaybe();
@@ -64,7 +64,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void FirstMaybe_WhenCalledOnEnumerableWithNoMatches_ReturnsNothing()
         {
             var collection = new[] { 1, 2 };
@@ -75,7 +75,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void FirstMaybe_WhenCalledOnEnumerableWithMatches_ReturnsFirstMatchingElement()
         {
             var expectedItem = Tuple.Create(2);
@@ -94,7 +94,7 @@ namespace Functional.Maybe.Tests
             Assert.AreSame(expectedItem, maybe.Value);
         }
 
-        [TestMethod]
+       [Test]
 	    public void SingleMaybe_WhenCalledOnEmptyEnumerable_ReturnsNothing()
 	    {
             var maybe = Enumerable.Empty<object>().SingleMaybe();
@@ -102,7 +102,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void SingleMaybe_WhenCalledOnEnumerableWithNoMatches_ReturnsNothing()
         {
             var collection = new[] { 1, 2 };
@@ -113,7 +113,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void SingleMaybe_WhenCalledOnNonEmptyEnumerableWithMultipleMatches_ReturnsNothing()
         {
             var collection = new[] { 1, 1, 2 };
@@ -124,7 +124,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void SingleMaybe_WhenCalledOnNonEmptyEnumerableWithSingleMatch_ReturnsSingleMatchingElement()
         {
             var collection = new[] { 1, 2, 3 };
@@ -136,7 +136,7 @@ namespace Functional.Maybe.Tests
             Assert.AreEqual(itemToSearch, maybe.Value);
         }
 
-        [TestMethod]
+       [Test]
         public void LastMaybe_WhenCalledOnEmptyEnumerable_ReturnsNothing()
         {
             var maybe = Enumerable.Empty<object>().LastMaybe();
@@ -144,7 +144,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void LastMaybe_WhenCalledOnEnumerableWithNoMatches_ReturnsNothing()
         {
             var collection = new[] { 1, 2 };
@@ -155,7 +155,7 @@ namespace Functional.Maybe.Tests
             Assert.IsTrue(maybe.IsNothing());
         }
 
-        [TestMethod]
+       [Test]
         public void LastMaybe_WhenCalledOnEnumerableWithMatches_ReturnsLastMatchingElement()
         {
             var expectedItem = Tuple.Create(2);

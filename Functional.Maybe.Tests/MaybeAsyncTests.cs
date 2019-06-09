@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.Threading.Tasks;
 
 namespace Functional.Maybe.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class MaybeAsyncTests
 	{
-		[TestMethod]
+		[Test]
 		public async Task SelectAsyncTest()
 		{
-			Task<int> two() => Task.FromResult(2);
+			Task<int> Two() => Task.FromResult(2);
 
-			var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await two()));
+			var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await Two()));
 
 			Assert.AreEqual(3, onePlusTwo.Value);
 		}

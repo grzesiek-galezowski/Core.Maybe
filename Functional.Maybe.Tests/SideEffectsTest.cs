@@ -1,19 +1,19 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Functional.Maybe.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class SideEffectsTest
 	{
-		[TestMethod]
+		[Test]
 		public void DoOnNothing_DoesNothing()
 		{
 			var target = "unchanged";
 			Maybe<string>.Nothing.Do(_ => target = "changed");
 			Assert.AreEqual("unchanged", target);
 		}
-		[TestMethod]
+		[Test]
 		public void DoOnSomething_DoesSomething()
 		{
 			var target = "unchanged";
@@ -21,7 +21,7 @@ namespace Functional.Maybe.Tests
 			Assert.AreEqual("changed", target);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MatchOnNothing_MatchesNothing()
 		{
 			var target1 = "unchanged";
@@ -30,7 +30,7 @@ namespace Functional.Maybe.Tests
 			Assert.AreEqual("unchanged", target1);
 			Assert.AreEqual("changed", target2);
 		}
-		[TestMethod]
+		[Test]
 		public void MatchOnSomething_MatchesSomething()
 		{
 			var target1 = "unchanged";

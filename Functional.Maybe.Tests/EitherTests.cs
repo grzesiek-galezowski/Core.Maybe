@@ -1,49 +1,64 @@
 ﻿using Functional.Either;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
+
 
 namespace Functional.Maybe.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class EitherTests
     {
         private readonly Either<int, string> _eitherResult;
         private readonly Either<int, string> _eitherError;
-        private const int _eitherLeftValue = 5;
-        private const string _eitherRightValue = "Five";
+        private const int EitherLeftValue = 5;
+        private const string EitherRightValue = "Five";
 
         public EitherTests()
         {
-            _eitherResult = _eitherLeftValue.ToResult<int, string>();
-            _eitherError = _eitherRightValue.ToError<int, string>();
+            _eitherResult = EitherLeftValue.ToResult<int, string>();
+            _eitherError = EitherRightValue.ToError<int, string>();
         }
+#pragma warning disable 219
 
-        [TestMethod]
+       [Test]
         public void NullCheckingTests()
         {
             Action<int> nullActionInt = null;
-            Action<int> mockActionInt = x => { var y = 5; };
+
+            void MockActionInt(int x)
+            {
+                var y = 5;
+            }
 
             Action<string> nullActionString = null;
-            Action<string> mockActionString = x => { var y = 5; };
+
+            void MockActionString(string x)
+            {
+                var y = 5;
+            }
 
             Action nullAction = null;
-            Action mockAction = () => { var a = 1; };
 
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(nullAction, mockAction));
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(mockAction, nullAction));
-            _eitherResult.Match(mockAction, mockAction);
+            void MockAction()
+            {
+                var a = 1;
+            }
 
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullAction, mockAction));
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(mockAction, nullAction));
-            _eitherError.Match(mockAction, mockAction);
+            // ReSharper disable ExpressionIsAlwaysNull
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(nullAction, MockAction));
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(MockAction, nullAction));
+            _eitherResult.Match(MockAction, MockAction);
 
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullActionInt, mockActionString));
-            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(mockActionInt, nullActionString));
-            _eitherResult.Match(mockActionInt, mockActionString);
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullAction, MockAction));
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(MockAction, nullAction));
+            _eitherError.Match(MockAction, MockAction);
+
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullActionInt, MockActionString));
+            AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(MockActionInt, nullActionString));
+            _eitherResult.Match(MockActionInt, MockActionString);
         }
 
-        [TestMethod]
+       [Test]
         public void MatchActionTests()
         {
             var bool1 = false;
@@ -76,18 +91,18 @@ namespace Functional.Maybe.Tests
 
             resetTestValues();
             _eitherResult.Match(setTestInt, setTestString);
-            Assert.AreEqual(_eitherLeftValue, testInt);
+            Assert.AreEqual(EitherLeftValue, testInt);
             Assert.AreEqual(null, testString);
 
             resetTestValues();
             _eitherError.Match(setTestInt, setTestString);
             Assert.AreEqual(0, testInt);
-            Assert.AreEqual(_eitherRightValue, testString);
+            Assert.AreEqual(EitherRightValue, testString);
 
             resetTestValues();
         }
 
-        [TestMethod]
+       [Test]
         public void MatchFunctionTests()
         {
             var testInt = 0;
@@ -112,12 +127,12 @@ namespace Functional.Maybe.Tests
             };
 
             Assert.IsTrue(_eitherResult.Match(funcTLT, funcTRT));
-            Assert.AreEqual(_eitherLeftValue, testInt);
+            Assert.AreEqual(EitherLeftValue, testInt);
             Assert.AreEqual(null, testString);
 
             resetTestValues();
             Assert.IsFalse(_eitherError.Match(funcTLT, funcTRT));
-            Assert.AreEqual(_eitherRightValue, testString);
+            Assert.AreEqual(EitherRightValue, testString);
             Assert.AreEqual(0, testInt);
 
             resetTestValues();
@@ -125,20 +140,20 @@ namespace Functional.Maybe.Tests
             Assert.IsFalse(_eitherError.Match(() => true, () => false));
         }
 
-        [TestMethod]
+       [Test]
         public void OrDefaultFunctionsTests()
         {
-            Assert.AreEqual(_eitherLeftValue, _eitherResult.ResultOrDefault());
-            Assert.AreEqual(_eitherRightValue, _eitherError.ErrorOrDefault());
+            Assert.AreEqual(EitherLeftValue, _eitherResult.ResultOrDefault());
+            Assert.AreEqual(EitherRightValue, _eitherError.ErrorOrDefault());
 
-            Assert.AreEqual(default, _eitherError.ResultOrDefault());
+            Assert.AreEqual(0, _eitherError.ResultOrDefault());
             Assert.AreEqual(default, _eitherResult.ErrorOrDefault());
 
             Assert.AreEqual(29, _eitherError.ResultOrDefault(29));
             Assert.AreEqual("Twenty nine", _eitherResult.ErrorOrDefault("Twenty nine"));
         }
 
-        [TestMethod]
+       [Test]
         public void SameTResultTErrorTests()
         {
             var eitherResult = Either<string, string>.Result("Left defined");
@@ -151,7 +166,7 @@ namespace Functional.Maybe.Tests
             Assert.AreEqual(null, eitherResult.ErrorOrDefault());
         }
 
-        [TestMethod]
+       [Test]
         public void ExtensionMethodTests()
         {
             var eitherResult = 29.ToResult<int, string>();
@@ -166,7 +181,7 @@ namespace Functional.Maybe.Tests
     }
 
 
-    class AssertExtension
+    internal static class AssertExtension
     {
         public static void Throws<T>(Action action) where T : Exception
         {
@@ -182,9 +197,9 @@ namespace Functional.Maybe.Tests
 
             if (!exceptionThrown)
             {
-                throw new AssertFailedException(
-                    String.Format("An exception of type {0} was expected, but not thrown", typeof(T))
-                    );
+                throw new Exception(
+                    $"An exception of type {typeof(T)} was expected, but not thrown"
+                );
             }
         }
     }
