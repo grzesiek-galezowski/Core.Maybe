@@ -24,6 +24,13 @@ namespace Functional.Maybe.Tests
 		}
 
 		[Test]
+		public async Task NullableStructToMaybeAsyncTest()
+		{
+			var task = Task.FromResult<int?>(null);
+			Assert.AreEqual((await task).ToMaybe(), await task.ToMaybeAsync());
+		}
+
+		[Test]
 		public async Task ObjectToMaybeAsyncTest()
 		{
 			var task = Task.FromResult("2");

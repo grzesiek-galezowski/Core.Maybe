@@ -36,5 +36,10 @@ namespace Functional.Maybe
 		{
 			return (await task).ToMaybe();
 		}
+
+		public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> task) where  T : struct
+		{
+			return (await task).ToMaybe();
+		}
   }
 }
