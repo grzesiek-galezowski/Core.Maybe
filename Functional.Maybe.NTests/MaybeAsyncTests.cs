@@ -15,5 +15,19 @@ namespace Functional.Maybe.Tests
 
 			Assert.AreEqual(3, onePlusTwo.Value);
 		}
+
+		[Test]
+		public async Task StructToMaybeAsyncTest()
+		{
+			var task = Task.FromResult(2);
+			Assert.AreEqual((await task).ToMaybe(), await task.ToMaybeAsync());
+		}
+
+		[Test]
+		public async Task ObjectToMaybeAsyncTest()
+		{
+			var task = Task.FromResult("2");
+			Assert.AreEqual((await task).ToMaybe(), await task.ToMaybeAsync());
+		}
 	}
 }
