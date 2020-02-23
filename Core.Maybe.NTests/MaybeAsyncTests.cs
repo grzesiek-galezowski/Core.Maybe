@@ -13,7 +13,7 @@ namespace Functional.Maybe.Tests
 
 			var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await Two()));
 
-			Assert.AreEqual(3, onePlusTwo.Value);
+			Assert.AreEqual(3, onePlusTwo.Value());
 		}
 
 		[Test]

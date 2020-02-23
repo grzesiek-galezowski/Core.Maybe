@@ -31,25 +31,23 @@ namespace Functional.Maybe
 		/// </summary>
 		public static readonly Maybe<T> Nothing = default;
 
-		/// <summary>
-		/// The value, stored in the monad. Can be accessed only if is really present, otherwise throws
-		/// </summary>
-		/// <exception cref="InvalidOperationException"> is thrown if not value is present</exception>
-		public T Value
-		{
-			get
-			{
-				if (!HasValue) throw new InvalidOperationException("value is not present");
-				return _value;
-			}
-		}
-		/// <summary>
+    /// <summary>
+    /// The value, stored in the monad. Can be accessed only if is really present, otherwise throws
+    /// </summary>
+    /// <exception cref="InvalidOperationException"> is thrown if not value is present</exception>
+    public T Value()
+    {
+      if (!HasValue) throw new InvalidOperationException("value is not present");
+      return _value;
+    }
+
+    /// <summary>
 		/// The flag of value presence
 		/// </summary>
 		public bool HasValue { get; }
 
 		/// <inheritdoc />
-		public override string ToString() => !HasValue ? "<Nothing>" : Value.ToString();
+		public override string ToString() => !HasValue ? "<Nothing>" : Value().ToString();
 
 		/// <summary>
 		/// Automatical flattening of the monad-in-monad
@@ -57,7 +55,7 @@ namespace Functional.Maybe
 		/// <param name="doubleMaybe"></param>
 		/// <returns></returns>
 		public static implicit operator Maybe<T>(Maybe<Maybe<T>> doubleMaybe) =>
-			doubleMaybe.HasValue ? doubleMaybe.Value : Nothing;
+			doubleMaybe.HasValue ? doubleMaybe.Value() : Nothing;
 
 		internal Maybe(T value)
 		{

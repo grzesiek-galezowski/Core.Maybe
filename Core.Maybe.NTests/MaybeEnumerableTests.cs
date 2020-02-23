@@ -91,7 +91,7 @@ namespace Functional.Maybe.Tests
 
             Assert.IsTrue(maybe.IsSomething());
             // use AreSame to compare expected value with actual one by reference
-            Assert.AreSame(expectedItem, maybe.Value);
+            Assert.AreSame(expectedItem, maybe.Value());
         }
 
        [Test]
@@ -133,7 +133,7 @@ namespace Functional.Maybe.Tests
             var maybe = collection.SingleMaybe(i => i == itemToSearch);
 
             Assert.IsTrue(maybe.IsSomething());
-            Assert.AreEqual(itemToSearch, maybe.Value);
+            Assert.AreEqual(itemToSearch, maybe.Value());
         }
 
        [Test]
@@ -171,7 +171,7 @@ namespace Functional.Maybe.Tests
 
             Assert.IsTrue(maybe.IsSomething());
             // use AreSame to compare expected value with actual one by reference
-            Assert.AreSame(expectedItem, maybe.Value);
+            Assert.AreSame(expectedItem, maybe.Value());
         }
     }
 }

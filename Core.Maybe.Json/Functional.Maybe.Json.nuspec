@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <package >
 	<metadata>
-		<id>Functional.Maybe.Json</id>
+		<id>Core.Maybe.Json</id>
 		<version>$version$</version>
-		<title>Functional.Maybe.Json — JsonConverter for the Maybe type</title>
-		<authors>Andrey Kurnoskin; Andrey Tsvetkov</authors>
-		<owners>Andrey Tsvetkov</owners>
-		<license>https://raw.githubusercontent.com/AndreyTsvetkov/Functional.Maybe/master/License.txt</license>
-		<projectUrl>https://github.com/AndreyTsvetkov/Functional.Maybe</projectUrl>
-		<iconUrl>http://findicons.com/files/icons/1462/candy_hearts/32/maybe.png</iconUrl>
+		<title>Core.Maybe.Json — JsonConverter for the Maybe type</title>
+		<authors>Grzegorz Gałęzowski; Andrey Kurnoskin; Andrey Tsvetkov</authors>
+		<owners>Grzegorz Gałęzowski</owners>
+		<license>https://raw.githubusercontent.com/grzesiek-galezowski/Core.Maybe/master/License.txt</license>
+		<projectUrl>https://github.com/grzesiek-galezowski/Core.Maybe</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<summary>Option types for C# with LINQ support and rich fluent syntax for many popular uses</summary>
 		<description>
@@ -18,7 +17,7 @@
 			var json = JsonConvert.SerializeObject(new MyClassWithMaybeProps("Test".ToMaybe()), settings);]]>
 		</description>
 		<releaseNotes>Added JsonConverter.</releaseNotes>
-		<copyright>Copyright 2019</copyright>
+		<copyright>Grzegorz Gałęzowski 2020, Andrey Kurnoskin; Andrey Tsvetkov 2019</copyright>
 		<tags> option, maybe, linq, fluent, functional </tags>
 	</metadata>
 </package>

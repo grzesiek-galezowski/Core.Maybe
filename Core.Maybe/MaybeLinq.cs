@@ -19,7 +19,7 @@ namespace Functional.Maybe
 		{
 			if (a.HasValue)
 			{
-				var result = fn(a.Value);
+				var result = fn(a.Value());
 
 				return result != null
 					? new Maybe<TResult>(result)
@@ -38,7 +38,7 @@ namespace Functional.Maybe
 		/// <param name="else"></param>
 		/// <returns></returns>
 		public static TResult SelectOrElse<T, TResult>(this Maybe<T> a, Func<T, TResult> fn, Func<TResult> @else) => 
-			a.HasValue ? fn(a.Value) : @else();
+			a.HasValue ? fn(a.Value()) : @else();
 		/// <summary>
 		/// If <paramref name="a"/> has value, and it fulfills the <paramref name="predicate"/>, returns <paramref name="a"/>, otherwise returns Nothing
 		/// </summary>
@@ -47,7 +47,7 @@ namespace Functional.Maybe
 		/// <param name="predicate"></param>
 		/// <returns></returns>
 		public static Maybe<T> Where<T>(this Maybe<T> a, Func<T, bool> predicate) => 
-			a.HasValue && predicate(a.Value) ? a : default;
+			a.HasValue && predicate(a.Value()) ? a : default;
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns, otherwise returns Nothing
 		/// </summary>
@@ -57,7 +57,7 @@ namespace Functional.Maybe
 		/// <param name="fn"></param>
 		/// <returns></returns>
 		public static Maybe<TR> SelectMany<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn) => 
-			a.HasValue ? fn(a.Value) : default;
+			a.HasValue ? fn(a.Value()) : default;
 
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it, and if the result also has value, calls <paramref name="composer"/> on both values 

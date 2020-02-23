@@ -14,23 +14,23 @@ namespace Functional.Maybe
 		/// <param name="res">async mapper</param>
 		/// <returns>Task of Maybe of TR</returns>
 		public static async Task<Maybe<TR>> SelectAsync<T, TR>(this Maybe<T> @this, Func<T, Task<TR>> res) => @this.HasValue
-			? await res(@this.Value).ToMaybeAsync()
+			? await res(@this.Value()).ToMaybeAsync()
 			: default;
 
 		public static async Task<T> OrElseAsync<T>(this Task<Maybe<T>> @this, Func<Task<T>> orElse)
 		{
 			var res = await @this;
-			return res.HasValue ? res.Value : await orElse();
+			return res.HasValue ? res.Value() : await orElse();
 		}
 		public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, T orElse)
 		{
 			var res = await @this;
-			return res.HasValue ? res.Value : orElse;
+			return res.HasValue ? res.Value() : orElse;
 		}
 		public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, Func<T> orElse)
 		{
 			var res = await @this;
-			return res.HasValue ? res.Value : orElse();
+			return res.HasValue ? res.Value() : orElse();
 		} 
 		public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T> task) => 
 			(await task).ToMaybe();

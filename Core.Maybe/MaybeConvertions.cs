@@ -40,7 +40,7 @@ namespace Functional.Maybe
 		public static IEnumerable<T> ToEnumerable<T>(this Maybe<T> a)
 		{
 			if (a.IsSomething())
-				yield return a.Value;
+				yield return a.Value();
 		}
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace Functional.Maybe
 		/// <param name="a"></param>
 		/// <returns></returns>
 		public static T? ToNullable<T>(this Maybe<T> a) where T : struct =>
-			a.IsSomething() ? a.Value : (T?)null;
+			a.IsSomething() ? a.Value() : (T?)null;
 
 		/// <summary>
 		/// Converts Nullable to corresponding Maybe

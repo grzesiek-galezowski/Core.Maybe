@@ -115,7 +115,7 @@ namespace Functional.Maybe
 		/// <param name="maybeCollection"></param>
 		/// <returns></returns>
 		public static IEnumerable<T> FromMaybe<T>(this Maybe<IEnumerable<T>> maybeCollection) =>
-			maybeCollection.HasValue ? maybeCollection.Value : Enumerable.Empty<T>();
+			maybeCollection.HasValue ? maybeCollection.Value() : Enumerable.Empty<T>();
 
 		/// <summary>
 		/// For each items that has value, applies <paramref name="selector"/> to it and wraps back as Maybe, for each otherwise remains Nothing
@@ -141,7 +141,7 @@ namespace Functional.Maybe
 			if (forced.AnyNothing())
 				return Maybe<IEnumerable<T>>.Nothing;
 
-			return forced.Select(m => m.Value).ToMaybe();
+			return forced.Select(m => m.Value()).ToMaybe();
 		}
 
 		/// <summary>
@@ -164,7 +164,7 @@ namespace Functional.Maybe
 		public static IEnumerable<TResult> SelectWhereValueExist<T, TResult>(this IEnumerable<Maybe<T>> maybes, Func<T, TResult> fn) =>
 			from maybe in maybes
 			where maybe.HasValue
-			select fn(maybe.Value);
+			select fn(maybe.Value());
 
 		/// <summary>
 		/// Checks if any item is Nothing 
@@ -190,7 +190,7 @@ namespace Functional.Maybe
 				var r = pred(x);
 				if (!r.HasValue)
 					return default;
-				if (r.Value)
+				if (r.Value())
 					l.Add(x);
 			}
 			return new Maybe<IEnumerable<T>>(l);
@@ -206,7 +206,7 @@ namespace Functional.Maybe
 		public static IEnumerable<T> Where<T>(this IEnumerable<T> xs, Func<T, Maybe<bool>> pred) =>
 			from x in xs
 			let b = pred(x)
-			where b.HasValue && b.Value
+			where b.HasValue && b.Value()
 			select x;
 
 		/// <summary>

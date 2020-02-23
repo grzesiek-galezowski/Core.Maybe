@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
-    <LangVersion>7.2</LangVersion>
-    <Version>2.0.0</Version>
-    <Authors>Andrey Tsvetkov; William Cassarin</Authors>
-    <PackageId>Functional.Maybe</PackageId>
-    <Company>Functional.Maybe</Company>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Version>1.0.0</Version>
+    <Authors>Grzegorz Gałęzowski; Andrey Tsvetkov; William Cassarin</Authors>
+    <PackageId>Core.Maybe</PackageId>
+    <Company>Core.Maybe</Company>
     <Description>Option types for C# with LINQ support and rich fluent syntax for many popular uses:
 
 		var maybeOne = "one".ToMaybe();
@@ -22,13 +22,12 @@
 			@else: () =&gt; Console.WriteLine("Result is Nothing, as one of the inputs was Nothing")
 		);</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/AndreyTsvetkov/Functional.Maybe/master/License.txt</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/AndreyTsvetkov/Functional.Maybe</PackageProjectUrl>
-    <PackageIconUrl>http://findicons.com/files/icons/1462/candy_hearts/32/maybe.png</PackageIconUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/grzesiek-galezowski/Core.Maybe/master/License.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/grzesiek-galezowski/Core.Maybe</PackageProjectUrl>
     <PackageTags>option, maybe, linq, fluent, functional</PackageTags>
-    <PackageReleaseNotes>Migrated to Net Standart 1.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Forked</PackageReleaseNotes>
     <Product>Option types for C# with LINQ support and rich fluent syntax for many popular uses</Product>
-    <RepositoryUrl>https://github.com/AndreyTsvetkov/Functional.Maybe</RepositoryUrl>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/Core.Maybe</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

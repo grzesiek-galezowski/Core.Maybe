@@ -34,7 +34,7 @@ namespace Functional.Maybe
 		/// <param name="fn"></param>
 		public static void DoWhenTrue(this Maybe<bool> m, Action fn)
 		{
-			if (m.HasValue && m.Value)
+			if (m.HasValue && m.Value())
 				fn();
 		}
 		/// <summary>
@@ -45,7 +45,7 @@ namespace Functional.Maybe
 		/// <param name="else"></param>
 		public static void DoWhenTrue(this Maybe<bool> m, Action fn, Action @else)
 		{
-			if (m.HasValue && m.Value)
+			if (m.HasValue && m.Value())
 				fn();
 			else 
 				@else();

@@ -97,14 +97,14 @@ namespace Functional.Maybe.Json
 			if (IsSimpleType(UnderlyingType))
 			{
 				if (typed.HasValue)
-					writer.WriteValue(typed.Value);
+					writer.WriteValue(typed.Value());
 				else
 					writer.WriteNull();
 			}
 			else
 			{
 				if (typed.HasValue)
-					serializer.Serialize(writer, typed.Value);
+					serializer.Serialize(writer, typed.Value());
 				else
 					writer.WriteNull();
 			}

@@ -17,7 +17,7 @@ namespace Functional.Maybe
 		public static Maybe<T> Do<T>(this Maybe<T> m, Action<T> fn)
 		{
 			if (m.IsSomething())
-				fn(m.Value);
+				fn(m.Value());
 			return m;
 		}
 
@@ -32,7 +32,7 @@ namespace Functional.Maybe
 		public static Maybe<T> Match<T>(this Maybe<T> m, Action<T> fn, Action @else)
 		{
 			if (m.IsSomething())
-				fn(m.Value);
+				fn(m.Value());
 			else
 				@else();
 			return m;

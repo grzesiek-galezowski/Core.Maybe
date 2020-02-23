@@ -86,8 +86,8 @@ namespace Functional.Maybe
 				if (maybe.IsNothing())
 					return acc;
 
-				acc.Add(flattenSelector(maybe.Value));
-				maybe = parentSelector(maybe.Value);
+				acc.Add(flattenSelector(maybe.Value()));
+				maybe = parentSelector(maybe.Value());
 			}
 		}
 	}
