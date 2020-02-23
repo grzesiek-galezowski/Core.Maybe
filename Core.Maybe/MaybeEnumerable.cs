@@ -31,7 +31,7 @@ namespace Core.Maybe
 			{
 	            if (predicate(item))
 				{
-	                return item.ToMaybe();
+	                return item.ToMaybeGeneric();
 	            }
 	        }
 	        return Maybe<T>.Nothing;
@@ -72,7 +72,7 @@ namespace Core.Maybe
             switch(count)
 			{
                 case 0: return default;
-                case 1: return result.ToMaybe();
+                case 1: return result.ToMaybeGeneric();
             }
             return default;
         }
@@ -105,7 +105,7 @@ namespace Core.Maybe
 	                found = true;
 	            }
 	        }
-			return found ? result.ToMaybe() : default;
+			return found ? result.ToMaybeGeneric() : default;
 		}
 
 		/// <summary>
@@ -141,7 +141,7 @@ namespace Core.Maybe
 			if (forced.AnyNothing())
 				return Maybe<IEnumerable<T>>.Nothing;
 
-			return forced.Select(m => m.Value()).ToMaybe();
+			return forced.Select(m => m.Value()).ToMaybeGeneric();
 		}
 
 		/// <summary>

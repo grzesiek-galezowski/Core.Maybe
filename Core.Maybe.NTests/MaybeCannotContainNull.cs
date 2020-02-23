@@ -15,7 +15,7 @@ namespace Core.Maybe.NTests
 		{
 			var user = new User { Name = null };
 
-			var maybeUser = user.ToMaybe();
+			var maybeUser = user.ToMaybeGeneric();
 
 			Assert.AreEqual(Maybe<string>.Nothing, maybeUser.Select(_ => _.Name));
 

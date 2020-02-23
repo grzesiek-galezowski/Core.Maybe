@@ -71,7 +71,7 @@ namespace Core.Maybe
 		/// <param name="composer"></param>
 		/// <returns></returns>
 		public static Maybe<TResult> SelectMany<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer) => 
-			a.SelectMany(x => fn(x).SelectMany(y => composer(x, y).ToMaybe()));
+			a.SelectMany(x => fn(x).SelectMany(y => composer(x, y).ToMaybeGeneric()));
 
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns, otherwise returns Nothing. Alias for SelectMany.

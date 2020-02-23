@@ -118,7 +118,7 @@ namespace Core.Maybe.Json
 					IsSimpleType(UnderlyingType)
 						? reader.Value is T ? (T)reader.Value : TryConvert(reader.Value)
 						: serializer.Deserialize<T>(reader)
-				).ToMaybe();
+				).ToMaybeGeneric();
 
 		private static T TryConvert(object value)
 		{
@@ -129,7 +129,7 @@ namespace Core.Maybe.Json
 				return (UnderlyingType.GetEnumUnderlyingType() != value.GetType()).Then(
 						// например, enum на базе int, а тут передано value — long,
 						// тогда обработаем через GetName/Parse, чтобы не жоглировать всеми вариантами типов целых чисел
-						() => Enum.GetName(UnderlyingType, value).ToMaybe()
+						() => Enum.GetName(UnderlyingType, value).ToMaybeGeneric()
 					).Collapse()
 					.Select(enumOptionName => (T)Enum.Parse(UnderlyingType, enumOptionName))
 					.OrElse(() => (T)value);

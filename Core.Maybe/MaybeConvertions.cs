@@ -59,7 +59,7 @@ namespace Core.Maybe
 		/// <param name="a"></param>
 		/// <returns></returns>
 		public static Maybe<T> ToMaybe<T>(this T? a) where T : struct =>
-			!a.HasValue ? default : a.Value.ToMaybe();
+			a?.ToMaybeGeneric() ?? default;
 
 		/// <summary>
 		/// Returns <paramref name="a"/> wrapped as Maybe
@@ -67,7 +67,40 @@ namespace Core.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static Maybe<T> ToMaybe<T>(this T a) =>
+		public static Maybe<T> ToMaybeGeneric<T>(this T a) =>
 			a == null ? default : new Maybe<T>(a);
+
+    /// <summary>
+		/// Returns <paramref name="a"/> wrapped as Maybe
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="a"></param>
+		/// <returns></returns>
+		public static Maybe<T> ToMaybe<T>(this T? a) where T : class =>
+			a!.ToMaybeGeneric();
+
+    public static Maybe<T> Just<T>(this T? value) where T : struct
+    {
+      if (value.HasValue)
+      {
+        return value.Value.ToMaybeGeneric();
+      }
+      throw new ArgumentNullException(nameof(value), "Cannot create a Just<" + typeof(T) + "> from null");
+    }
+
+    public static Maybe<T> Just<T>(this T value)
+    {
+      if (value != null)
+      {
+        return value.ToMaybeGeneric();
+      }
+      throw new ArgumentNullException(nameof(value), "Cannot create a Just<" + typeof(T) + "> from null");
+    }
+
+    public static Maybe<T> JustFromNullable<T>(this T? value) where T : class
+    {
+      return value!.Just();
+    }
+
 	}
 }

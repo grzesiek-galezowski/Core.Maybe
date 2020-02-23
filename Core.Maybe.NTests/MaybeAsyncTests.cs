@@ -11,7 +11,7 @@ namespace Core.Maybe.NTests
 		{
 			Task<int> Two() => Task.FromResult(2);
 
-			var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await Two()));
+			var onePlusTwo = await 1.ToMaybeGeneric().SelectAsync(async one => one + (await Two()));
 
 			Assert.AreEqual(3, onePlusTwo.Value());
 		}
@@ -20,7 +20,7 @@ namespace Core.Maybe.NTests
 		public async Task StructToMaybeAsyncTest()
 		{
 			var task = Task.FromResult(2);
-			Assert.AreEqual((await task).ToMaybe(), await task.ToMaybeAsync());
+			Assert.AreEqual((await task).ToMaybeGeneric(), await task.ToMaybeGenericAsync());
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace Core.Maybe.NTests
 		public async Task ObjectToMaybeAsyncTest()
 		{
 			var task = Task.FromResult("2");
-			Assert.AreEqual((await task).ToMaybe(), await task.ToMaybeAsync());
+			Assert.AreEqual((await task).ToMaybeGeneric(), await task.ToMaybeGenericAsync());
 		}
 	}
 }

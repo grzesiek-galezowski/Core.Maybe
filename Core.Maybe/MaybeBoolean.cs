@@ -15,7 +15,7 @@ namespace Core.Maybe
 		/// <param name="f"></param>
 		/// <returns></returns>
 		public static Maybe<T> Then<T>(this bool condition, Func<T> f) =>
-			condition ? f().ToMaybe() : default;
+			condition ? f().ToMaybeGeneric() : default;
 
 		/// <summary>
 		/// If <paramref name="condition"/> returns <paramref name="t"/> as Maybe, otherwise Nothing
@@ -25,7 +25,7 @@ namespace Core.Maybe
 		/// <param name="t"></param>
 		/// <returns></returns>
 		public static Maybe<T> Then<T>(this bool condition, T t) =>
-			condition ? t.ToMaybe() : default;
+			condition ? t.ToMaybeGeneric() : default;
 
 		/// <summary>
 		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybe()

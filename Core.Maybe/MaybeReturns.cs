@@ -51,8 +51,17 @@ namespace Core.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static T OrElseDefault<T>(this Maybe<T> a) =>
+		public static T OrElseDefault<T>(this Maybe<T> a) where T : struct =>
 			a.HasValue ? a.Value() : default;
+		
+    /// <summary>
+		/// Returns <paramref name="a"/>.Value or returns null(<typeparamref name="T"/>)
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="a"></param>
+		/// <returns></returns>
+		public static T? OrElseNull<T>(this Maybe<T> a) where T : class =>
+			a.HasValue ? a.Value() : null;
 
 		/// <summary>
 		/// Returns <paramref name="a"/>.Value or returns <paramref name="default"/>

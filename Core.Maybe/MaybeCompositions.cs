@@ -18,7 +18,7 @@ namespace Core.Maybe
 		/// <param name="b"></param>
 		/// <returns></returns>
 		public static Maybe<T> Or<T>(this Maybe<T> a, T b) =>
-			a.IsSomething() ? a : b.ToMaybe();
+			a.IsSomething() ? a : b.ToMaybeGeneric();
 
 		/// <summary>
 		/// Returns <paramref name="a"/> if its Value exists or returns <paramref name="b"/>()

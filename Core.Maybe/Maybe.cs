@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Maybe
 {
@@ -34,6 +35,7 @@ namespace Core.Maybe
     /// The value, stored in the monad. Can be accessed only if is really present, otherwise throws
     /// </summary>
     /// <exception cref="InvalidOperationException"> is thrown if not value is present</exception>
+    [return: NotNull]
     public T Value()
     {
       if (!HasValue) throw new InvalidOperationException("value is not present");

@@ -28,7 +28,7 @@ namespace Core.Maybe
 		{
 			TR result;
 			return tryer(arg, out result)
-				? result.ToMaybe()
+				? result.ToMaybeGeneric()
 				: Maybe<TR>.Nothing;
 		};
 
@@ -45,7 +45,7 @@ namespace Core.Maybe
 		{
 			try
 			{
-				return f(arg).ToMaybe();
+				return f(arg).ToMaybeGeneric();
 			}
 			catch (TEx)
 			{
