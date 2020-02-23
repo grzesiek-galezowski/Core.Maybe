@@ -1,7 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Functional.Maybe.Tests
+namespace Core.Maybe.NTests
 {
 	[TestFixture]
 	public class SideEffectsTest

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	public static class MaybeAsync
 	{

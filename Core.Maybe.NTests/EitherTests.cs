@@ -1,9 +1,7 @@
-﻿using Functional.Either;
+﻿using System;
 using NUnit.Framework;
-using System;
 
-
-namespace Functional.Maybe.Tests
+namespace Core.Maybe.NTests
 {
     [TestFixture]
     public class EitherTests

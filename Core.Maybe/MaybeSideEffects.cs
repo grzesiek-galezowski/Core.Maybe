@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	/// <summary>
 	/// Applying side effects into the Maybe call chain

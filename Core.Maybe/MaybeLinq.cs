@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	/// <summary>
 	/// Providing necessary methods to enable linq syntax with Maybes themselves

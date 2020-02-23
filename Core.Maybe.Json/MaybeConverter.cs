@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Functional.Maybe.Json
+namespace Core.Maybe.Json
 {
 	public class MaybeConverter : JsonConverter
 	{

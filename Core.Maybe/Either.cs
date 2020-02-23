@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Functional.Either
+namespace Core.Maybe
 {
     /// <summary>
     /// A functional monadic concept Either to make validation code more expressive and easier to maintain.

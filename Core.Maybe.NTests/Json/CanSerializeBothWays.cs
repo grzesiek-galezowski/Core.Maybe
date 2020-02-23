@@ -1,8 +1,8 @@
-using Functional.Maybe.Json;
+using Core.Maybe.Json;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace Functional.Maybe.Tests.Json
+namespace Core.Maybe.NTests.Json
 {
 	[TestFixture]
 	public class CanSerializeBothWays

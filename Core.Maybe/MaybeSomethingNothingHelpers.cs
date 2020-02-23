@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	/// <summary>
 	/// IsSomething, IsNothing and shorthands to create typed Nothing of correct type

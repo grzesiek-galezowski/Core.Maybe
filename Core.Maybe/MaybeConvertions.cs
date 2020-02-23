@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	/// <summary>
 	/// Fluent exts for converting the values of Maybe to/from lists, nullables; casting and upshifting

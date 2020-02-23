@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	/// <summary>
 	/// Composing two maybe value to one, such operations, as one.Or(another)

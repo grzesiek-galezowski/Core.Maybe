@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
 	public static class MaybeDictionary
 	{

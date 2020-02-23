@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using NUnit.Framework;
 
-namespace Functional.Maybe.Tests
+namespace Core.Maybe.NTests
 {
 	[TestFixture]
 	public class MaybeAsyncTests

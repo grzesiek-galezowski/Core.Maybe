@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
+using NUnit.Framework;
 
-namespace Functional.Maybe.Tests
+namespace Core.Maybe.NTests
 {
 	[TestFixture]
 	public class MaybeNullableTests

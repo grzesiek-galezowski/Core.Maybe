@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace Functional.Maybe
+namespace Core.Maybe
 {
-	/// <summary>
+  /// <summary>
 	/// The option type; explicitly represents nothing-or-thing nature of a value. 
 	/// Supports some of the LINQ operators, such as SelectMany, Where and can be used 
 	/// with linq syntax: 
@@ -50,7 +49,7 @@ namespace Functional.Maybe
 		public override string ToString() => !HasValue ? "<Nothing>" : Value().ToString();
 
 		/// <summary>
-		/// Automatical flattening of the monad-in-monad
+		/// Automatic flattening of the monad-in-monad
 		/// </summary>
 		/// <param name="doubleMaybe"></param>
 		/// <returns></returns>

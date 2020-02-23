@@ -1,8 +1,8 @@
 ﻿using System;
-using NUnit.Framework;
 using System.Linq;
+using NUnit.Framework;
 
-namespace Functional.Maybe.Tests
+namespace Core.Maybe.NTests
 {
 	[TestFixture]
 	public class MaybeEnumerableTests
