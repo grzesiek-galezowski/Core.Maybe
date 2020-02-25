@@ -12,11 +12,12 @@ namespace Core.Maybe.NTests
 			Maybe<string>.Nothing.Do(_ => target = "changed");
 			Assert.AreEqual("unchanged", target);
 		}
+
 		[Test]
 		public void DoOnSomething_DoesSomething()
 		{
 			var target = "unchanged";
-			"changed".ToMaybeGeneric().Do(_ => target = _);
+			"changed".ToMaybeObject().Do(_ => target = _);
 			Assert.AreEqual("changed", target);
 		}
 
@@ -34,7 +35,7 @@ namespace Core.Maybe.NTests
 		{
 			var target1 = "unchanged";
 			var target2 = "unchanged";
-			"κατι".ToMaybeGeneric().Match(_ => target1 = "changed", () => target2 = "changed");
+			"κατι".ToMaybeObject().Match(_ => target1 = "changed", () => target2 = "changed");
 			Assert.AreEqual("changed", target1);
 			Assert.AreEqual("unchanged", target2);
 		}

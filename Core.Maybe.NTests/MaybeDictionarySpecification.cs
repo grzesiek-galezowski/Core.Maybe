@@ -11,7 +11,7 @@ namespace Core.Maybe.NTests
     {
       var d = new Dictionary<string, string?>();
 
-      var lookup = d.LookupNullable("A");
+      var lookup = d.LookupObject("A");
 
       lookup.Should().Be(Maybe<string>.Nothing);
     }
@@ -25,7 +25,7 @@ namespace Core.Maybe.NTests
         {key, null }
       };
 
-      var lookup = d.LookupNullable(key);
+      var lookup = d.LookupObject(key);
 
       lookup.Should().Be(Maybe<string>.Nothing);
     }

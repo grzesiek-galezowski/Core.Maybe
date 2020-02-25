@@ -8,7 +8,7 @@ namespace Core.Maybe.NTests
 		[Test]
 		public void MaybeWithValueEnumerates()
 		{
-			var m = 1.ToMaybeGeneric().ToEnumerable();
+			var m = 1.ToMaybeValue().ToEnumerable();
 			int c = 0;
 			foreach (var val in m)
 				c++;

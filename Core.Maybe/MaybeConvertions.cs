@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Maybe
 {
@@ -58,8 +59,17 @@ namespace Core.Maybe
     /// <typeparam name="T"></typeparam>
     /// <param name="a"></param>
     /// <returns></returns>
-    public static Maybe<T> ToMaybe<T>(this T? a) where T : struct =>
+    public static Maybe<T> ToMaybeNullable<T>(this T? a) where T : struct =>
       a?.ToMaybeGeneric() ?? default;
+
+    /// <summary>
+    /// Converts a struct to corresponding Maybe
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="a"></param>
+    /// <returns></returns>
+    public static Maybe<T> ToMaybeValue<T>(this T a) where T : struct =>
+      a.ToMaybeGeneric();
 
     /// <summary>
     /// Returns <paramref name="a"/> wrapped as Maybe
@@ -76,20 +86,22 @@ namespace Core.Maybe
     /// <typeparam name="T"></typeparam>
     /// <param name="a"></param>
     /// <returns></returns>
-    public static Maybe<T> ToMaybe<T>(this T? a) where T : class =>
-      a!.ToMaybeGeneric();
+    public static Maybe<T> ToMaybeObject<T>(this T? a) where T : class
+    {
+      return a!.ToMaybeGeneric();
+    }
 
-    public static Maybe<T> Just<T>(this T? value) where T : struct
+    public static Maybe<T> JustNullable<T>(this T? value) where T : struct
     {
       if (value.HasValue)
       {
-        return value.Value.ToMaybeGeneric();
+        return value.Value.ToMaybeValue();
       }
 
       throw new ArgumentNullException(nameof(value), "Cannot create a Just<" + typeof(T) + "> from null");
     }
 
-    public static Maybe<T> Just<T>(this T value)
+    public static Maybe<T> JustGeneric<T>(this T value)
     {
       if (value != null)
       {
@@ -99,9 +111,14 @@ namespace Core.Maybe
       throw new ArgumentNullException(nameof(value), "Cannot create a Just<" + typeof(T) + "> from null");
     }
 
-    public static Maybe<T> JustFromNullable<T>(this T? value) where T : class
+    public static Maybe<T> JustObject<T>(this T? value) where T : class
     {
-      return value!.Just();
+      return value!.JustGeneric();
+    }
+
+    public static Maybe<T> JustValue<T>(this T value) where T : struct
+    {
+      return value.JustGeneric();
     }
 
   }

@@ -69,8 +69,7 @@ namespace Core.Maybe
 
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(null, obj)) return false;
-			return obj is Maybe<T> mb && Equals(mb);
+			return !ReferenceEquals(null, obj) && obj is Maybe<T> mb && Equals(mb);
 		}
 
 		public override int GetHashCode()

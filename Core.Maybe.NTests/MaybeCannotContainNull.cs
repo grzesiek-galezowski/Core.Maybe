@@ -7,7 +7,7 @@ namespace Core.Maybe.NTests
 	{
 		private class User
 		{
-			public string Name { get; set; }
+			public string? Name { get; set; }
 		}
 
 		[Test]
@@ -15,7 +15,7 @@ namespace Core.Maybe.NTests
 		{
 			var user = new User { Name = null };
 
-			var maybeUser = user.ToMaybeGeneric();
+			var maybeUser = user.ToMaybeObject();
 
 			Assert.AreEqual(Maybe<string>.Nothing, maybeUser.Select(_ => _.Name));
 

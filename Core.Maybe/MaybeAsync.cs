@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Core.Maybe
@@ -38,19 +39,27 @@ namespace Core.Maybe
     public static async Task<Maybe<T>> ToMaybeGenericAsync<T>(this Task<T> task) =>
       (await task).ToMaybeGeneric();
 
-    public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> task) where T : struct =>
-      (await task).ToMaybe();
-
-    public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> task) where T : class =>
+    public static async Task<Maybe<T>> ToMaybeValueAsync<T>(this Task<T> task) where T : struct =>
       await task.ToMaybeGenericAsync();
 
-    public static async Task<Maybe<T>> JustAsync<T>(this Task<T> value) =>
-      (await value).Just();
+    public static async Task<Maybe<T>> ToMaybeNullableAsync<T>(this Task<T?> task) where T : struct =>
+      (await task).ToMaybeNullable();
 
-    public static async Task<Maybe<T>> JustAsync<T>(this Task<T?> value) where T : struct =>
-      (await value).Just();
+    //no way of making this cope with non-nullable references for now
+    //public static async Task<Maybe<T>> ToMaybeObjectAsync<T>(this Task<T?> task) where T : class =>
+    //  (await task).ToMaybeObject();
 
-    public static async Task<Maybe<T>> JustFromNullableAsync<T>(this Task<T?> value) where T : class =>
-      await value.JustAsync();
+    public static async Task<Maybe<T>> JustGenericAsync<T>(this Task<T> value) =>
+      (await value).JustGeneric();
+
+    public static async Task<Maybe<T>> JustValueAsync<T>(this Task<T> value) where T : struct =>
+      (await value).JustGeneric();
+
+    public static async Task<Maybe<T>> JustNullableAsync<T>(this Task<T?> value) where T : struct =>
+      (await value).JustNullable();
+
+    //no way of making this cope with non-nullable references for now
+    //public static async Task<Maybe<T>> JustObjectAsync<T>(this Task<T?> value) where T : class =>
+    //  await value.JustGenericAsync();
   }
 }

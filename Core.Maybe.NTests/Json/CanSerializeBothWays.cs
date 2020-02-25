@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Maybe.Json;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -12,7 +13,7 @@ namespace Core.Maybe.NTests.Json
 		{
 			var settings = new JsonSerializerSettings();
 			settings.Converters.Add(new MaybeConverter());
-			var json = JsonConvert.SerializeObject(new MyClass("Test".ToMaybeGeneric()), settings);
+			var json = JsonConvert.SerializeObject(new MyClass("Test".ToMaybeObject()), settings);
 
 			
 			Assert.AreEqual("{\"Name\":\"Test\"}", json);
@@ -26,7 +27,7 @@ namespace Core.Maybe.NTests.Json
 			var obj = JsonConvert.DeserializeObject<MyClass>("{\"Name\":\"Test\"}", settings);
 
 			
-			Assert.AreEqual("Test".ToMaybeGeneric(), obj.Name);
+			Assert.AreEqual("Test".ToMaybeObject(), obj!.Name);
 		}
 		
 			
@@ -36,12 +37,11 @@ namespace Core.Maybe.NTests.Json
 			var settings = new JsonSerializerSettings();
 			settings.Converters.Add(new MaybeConverter());
 			var obj = JsonConvert.DeserializeObject<MyContainer>(
-				JsonConvert.SerializeObject(new MyContainer(new MyClass("Test".ToMaybeGeneric())), settings), 
+				JsonConvert.SerializeObject(new MyContainer(new MyClass("Test".ToMaybeObject())), settings), 
 				settings
 			);
 
-			
-			Assert.AreEqual("Test".ToMaybeGeneric(), obj.Something.Name);
+      Assert.AreEqual("Test".ToMaybeObject(), obj.Something.Name);
 		}
 	}
 

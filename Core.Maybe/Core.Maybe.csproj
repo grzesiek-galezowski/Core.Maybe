@@ -8,20 +8,7 @@
     <Authors>Grzegorz Gałęzowski; Andrey Tsvetkov; William Cassarin</Authors>
     <PackageId>Core.Maybe</PackageId>
     <Company>Core.Maybe</Company>
-    <Description>Option types for C# with LINQ support and rich fluent syntax for many popular uses:
-
-		var maybeOne = "one".ToMaybe();
-		Maybe&lt;string&gt; maybeAnother;
-
-		var maybeBoth = 
-			from one in maybeOne
-			from another in maybeAnother
-			select one + another;
-
-		maybeBoth.Match(
-			both =&gt; Console.WriteLine("Result is: {0}", both), 
-			@else: () =&gt; Console.WriteLine("Result is Nothing, as one of the inputs was Nothing")
-		);</Description>
+    <Description>Option types for C# with LINQ support and rich fluent syntax for many popular uses</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://raw.githubusercontent.com/grzesiek-galezowski/Core.Maybe/master/License.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/grzesiek-galezowski/Core.Maybe</PackageProjectUrl>
@@ -29,6 +16,7 @@
     <PackageReleaseNotes>Forked</PackageReleaseNotes>
     <Product>Option types for C# with LINQ support and rich fluent syntax for many popular uses</Product>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/Core.Maybe</RepositoryUrl>
+    <Copyright>Andrey Tsvetkov; William Cassarin 2015, Grzegorz Gałęzowski 2020</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
