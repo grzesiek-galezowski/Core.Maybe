@@ -176,8 +176,8 @@ var parsedFromDict = from val in d.Lookup("key")
 
 | use case          | to maybe | just | to maybe async | just async | lookup |
 |-------------------|----------|------|----------------|------------|--------|
-| generic value     | a | a | a | a | a |
-| struct            | a | a | a | a | a |
-| nullable struct   | a | a | a | a | a |
-| nullable ref type | a | a | a | a | a |
+| generic value     | `ToMaybeGeneric()` | `JustGeneric()` | `ToMaybeGenericAsync()` | `JustGenericAsync()`  | `LookupGeneric()` |
+| struct            | `ToMaybeValue()` | `JustValue()` | `ToMaybeValueAsync()` | `JustValueAsync()`  | `LookupValue()` |
+| nullable struct   | `ToMaybeNullable()` | `JustNullable()` | `ToMaybeNullableAsync()` | `JustNullableAsync()`  | `LookupNullable()` |
+| nullable ref type | `ToMaybeNullRef()` | `JustNullRef()` | `ToMaybeNullRefAsync()` | `JustNullRefAsync()`  | `LookupNullRef()` |
 
