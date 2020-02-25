@@ -174,7 +174,10 @@ var parsedFromDict = from val in d.Lookup("key")
 
 ### Different overloads
 
-| use case | to maybe | just | to maybe async | just async | lookup |
-|----------|----------|------|----------------|------------|--------|
-| a | a | a | a | a | a |
+| use case          | to maybe | just | to maybe async | just async | lookup |
+|-------------------|----------|------|----------------|------------|--------|
+| generic value     | a | a | a | a | a |
+| struct            | a | a | a | a | a |
+| nullable struct   | a | a | a | a | a |
+| nullable ref type | a | a | a | a | a |
 
