@@ -172,3 +172,9 @@ var parsedFromDict = from val in d.Lookup("key")
                      select parsedVal;
 ```
 
+### Different overloads
+
+| use case | to maybe | just | to maybe async | just async | lookup |
+|----------|----------|------|----------------|------------|--------|
+| a | a | a | a | a | a |
+
