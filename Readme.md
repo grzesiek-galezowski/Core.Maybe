@@ -179,5 +179,5 @@ var parsedFromDict = from val in d.Lookup("key")
 | generic value     | `ToMaybeGeneric()` | `JustGeneric()` | `ToMaybeGenericAsync()` | `JustGenericAsync()`  | `LookupGeneric()` |
 | struct            | `ToMaybeValue()` | `JustValue()` | `ToMaybeValueAsync()` | `JustValueAsync()`  | `LookupValue()` |
 | nullable struct   | `ToMaybeNullable()` | `JustNullable()` | `ToMaybeNullableAsync()` | `JustNullableAsync()`  | `LookupNullable()` |
-| nullable ref type | `ToMaybeNullRef()` | `JustNullRef()` | `ToMaybeNullRefAsync()` | `JustNullRefAsync()`  | `LookupNullRef()` |
+| nullable ref type | `ToMaybeObject()` | `JustObject()` | `-` | `-`  | `LookupObject()` |
 
