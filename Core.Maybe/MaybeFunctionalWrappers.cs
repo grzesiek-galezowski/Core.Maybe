@@ -24,11 +24,24 @@ namespace Core.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="tryer"></param>
 		/// <returns></returns>
-		public static Func<T, Maybe<TR>> Wrap<T, TR>(TryGet<T, TR> tryer) => (T arg) =>
+		public static Func<T, Maybe<TR>> WrapGeneric<T, TR>(TryGet<T, TR> tryer) => (T arg) =>
 		{
-			TR result;
-			return tryer(arg, out result)
+      return tryer(arg, out var result)
 				? result.ToMaybeGeneric()
+				: Maybe<TR>.Nothing;
+		};
+    
+    /// <summary>
+		/// Converts a stardard tryer function (like int.TryParse, Dictionary.TryGetValue etc.) to a function, returning Maybe
+		/// </summary>
+		/// <typeparam name="TR"></typeparam>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="tryer"></param>
+		/// <returns></returns>
+		public static Func<T, Maybe<TR>> WrapObject<T, TR>(TryGet<T, TR?> tryer) where TR : class => (T arg) =>
+		{
+      return tryer(arg, out var result)
+				? result.ToMaybeObject()
 				: Maybe<TR>.Nothing;
 		};
 
@@ -52,5 +65,31 @@ namespace Core.Maybe
 				return default;
 			}
 		};
-	}
+    
+    /// <summary>
+		/// Returns a function which calls <paramref name="f"/>, wrapped inside a try-catch clause with <typeparamref name="TEx"/> catched. 
+		/// That new function returns Nothing in the case of the <typeparamref name="TEx"/> thrown inside <paramref name="f"/>, otherwise it returns the f-result as Maybe
+		/// </summary>
+		/// <typeparam name="TA"></typeparam>
+		/// <typeparam name="TR"></typeparam>
+		/// <typeparam name="TEx"></typeparam>
+		/// <param name="f"></param>
+		/// <returns></returns>
+		public static Func<TA, Maybe<TR>> CatcherObject<TA, TR, TEx>(Func<TA, TR?> f) 
+      where TEx : Exception
+		  where TR : class
+    {
+      return (TA arg) =>
+      {
+        try
+        {
+          return f(arg).ToMaybeObject();
+        }
+        catch (TEx)
+        {
+          return default;
+        }
+      };
+    }
+  }
 }

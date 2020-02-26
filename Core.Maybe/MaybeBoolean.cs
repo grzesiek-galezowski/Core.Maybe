@@ -28,7 +28,7 @@ namespace Core.Maybe
 			condition ? t.ToMaybeGeneric() : default;
 
 		/// <summary>
-		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybe()
+		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybeValue()
 		/// </summary>
 		/// <param name="m"></param>
 		/// <param name="fn"></param>
@@ -38,7 +38,7 @@ namespace Core.Maybe
 				fn();
 		}
 		/// <summary>
-		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybe()
+		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybeValue()
 		/// </summary>
 		/// <param name="m"></param>
 		/// <param name="fn"></param>

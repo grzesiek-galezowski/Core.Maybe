@@ -10,7 +10,7 @@ namespace Core.Maybe
     /// </summary>
     public static Maybe<T> LookupGeneric<TK, T>(this IDictionary<TK, T> dictionary, TK key)
     {
-      var getter = MaybeFunctionalWrappers.Wrap<TK, T>(dictionary.TryGetValue);
+      var getter = MaybeFunctionalWrappers.WrapGeneric<TK, T>(dictionary.TryGetValue);
       return getter(key);
     }
 
@@ -19,7 +19,8 @@ namespace Core.Maybe
     /// </summary>
     public static Maybe<T> LookupObject<TK, T>(this IDictionary<TK, T?> dictionary, TK key) where T : class
     {
-      return dictionary!.LookupGeneric<TK, T>(key);
+      var getter = MaybeFunctionalWrappers.WrapObject<TK, T>(dictionary.TryGetValue);
+      return getter(key);
     }
 
     /// <summary>

@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Core.Maybe.NTests
 {
 	[TestFixture]
-	public class MaybeNullableTests
+	public class MaybeNullableSpecification
 	{
 		[Test]
 		public void ToNullableTest()

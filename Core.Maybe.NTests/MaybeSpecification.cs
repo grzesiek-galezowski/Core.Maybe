@@ -3,7 +3,7 @@
 namespace Core.Maybe.NTests
 {
 	[TestFixture]
-	public class MaybeCannotContainNull
+	public class MaybeSpecification
 	{
 		private class User
 		{

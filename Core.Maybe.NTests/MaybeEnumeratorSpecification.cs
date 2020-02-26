@@ -3,17 +3,21 @@
 namespace Core.Maybe.NTests
 {
 	[TestFixture]
-	public class MaybeEnumeratorTests
+	public class MaybeEnumeratorSpecification
 	{
 		[Test]
 		public void MaybeWithValueEnumerates()
 		{
 			var m = 1.ToMaybeValue().ToEnumerable();
 			int c = 0;
-			foreach (var val in m)
-				c++;
-			foreach (var val in m)
-				c++;
+      foreach (var val in m)
+      {
+        c++;
+      }
+      foreach (var val in m)
+      {
+        c++;
+      }
 			Assert.IsTrue(c == 2);
 		}
 

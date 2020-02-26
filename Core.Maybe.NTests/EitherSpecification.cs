@@ -3,15 +3,14 @@ using NUnit.Framework;
 
 namespace Core.Maybe.NTests
 {
-    [TestFixture]
-    public class EitherTests
+    public class EitherSpecification
     {
         private readonly Either<int, string> _eitherResult;
         private readonly Either<int, string> _eitherError;
         private const int EitherLeftValue = 5;
         private const string EitherRightValue = "Five";
 
-        public EitherTests()
+        public EitherSpecification()
         {
             _eitherResult = EitherLeftValue.ToResult<int, string>();
             _eitherError = EitherRightValue.ToError<int, string>();

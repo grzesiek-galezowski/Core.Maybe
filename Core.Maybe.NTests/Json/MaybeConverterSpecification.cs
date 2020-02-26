@@ -1,12 +1,10 @@
-using System.Collections.Generic;
 using Core.Maybe.Json;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace Core.Maybe.NTests.Json
 {
-	[TestFixture]
-	public class CanSerializeBothWays
+	public class MaybeConverterSpecification
 	{
 		[Test]
 		public void CanSerialize()

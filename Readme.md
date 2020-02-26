@@ -167,7 +167,7 @@ public static Maybe<int> ParseInt(string s) {
 ### Lookup + Parsing!
 
 ```cs
-var parsedFromDict = from val in d.Lookup("key")
+var parsedFromDict = from val in d.LookupValue("key")
                      from parsedVal in ParseInt(val)
                      select parsedVal;
 ```

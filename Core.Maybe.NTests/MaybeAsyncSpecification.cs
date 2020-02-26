@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Core.Maybe.NTests
 {
 	[TestFixture]
-	public class MaybeAsyncTests
+	public class MaybeAsyncSpecification
 	{
 		[Test]
 		public async Task SelectAsyncTest()
