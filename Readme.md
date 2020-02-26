@@ -112,8 +112,21 @@ try {
 Or, finally, you can just get the default value for that type:
 
 ```cs
-string val = maybeString.OrElseDefault();
+string? val = maybeString.OrElseNull();
 ```
+
+For structs:
+
+```cs
+int val = maybeInt.OrElseDefault();
+```
+
+Or, if you require something like this in generic code which doesn't differentiate between classes and structs:
+
+```cs
+T val = Unconstrained.OrElseDefault(maybeGenericType);
+```
+
 
 ### Why not use Nullable<T> instead?
 
