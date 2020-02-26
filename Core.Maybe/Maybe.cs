@@ -53,8 +53,6 @@ namespace Core.Maybe
 		/// <summary>
 		/// Automatic flattening of the monad-in-monad
 		/// </summary>
-		/// <param name="doubleMaybe"></param>
-		/// <returns></returns>
 		public static implicit operator Maybe<T>(Maybe<Maybe<T>> doubleMaybe) =>
 			doubleMaybe.HasValue ? doubleMaybe.Value() : Nothing;
 

@@ -2,8 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <Authors>Grzegorz Gałęzowski; Andrey Kurnoskin; Andrey Tsvetkov</Authors>
+    <PackageId>Core.Maybe.Json</PackageId>
+    <Company>Core.Maybe</Company>
+    <Description>Core.Maybe.Json — JsonConverter for the Maybe type</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/grzesiek-galezowski/Core.Maybe/master/License.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/grzesiek-galezowski/Core.Maybe</PackageProjectUrl>
+    <PackageTags>option, maybe, linq, fluent, functional</PackageTags>
+    <PackageReleaseNotes>Forked</PackageReleaseNotes>
+    <Product>Option types for C# with LINQ support and rich fluent syntax for many popular uses</Product>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/Core.Maybe</RepositoryUrl>
+    <Copyright>Andrey Kurnoskin; Andrey Tsvetkov 2019, Grzegorz Gałęzowski 2020</Copyright>
+
   </PropertyGroup>
 
   <ItemGroup>

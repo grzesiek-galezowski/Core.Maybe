@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Maybe
 {
@@ -12,10 +11,6 @@ namespace Core.Maybe
     /// <summary>
     /// If <paramref name="a"/>.Value exists and can be successfully casted to <typeparamref name="TB"/>, returns the casted one, wrapped as Maybe&lt;TB&gt;, otherwise Nothing
     /// </summary>
-    /// <typeparam name="TA"></typeparam>
-    /// <typeparam name="TB"></typeparam>
-    /// <param name="a"></param>
-    /// <returns></returns>
     public static Maybe<TB> Cast<TA, TB>(this Maybe<TA> a) where TB : class =>
       from m in a
       let t = m as TB
@@ -25,10 +20,6 @@ namespace Core.Maybe
     /// <summary>
     /// If <paramref name="a"/> can be successfully casted to <typeparamref name="TR"/>, returns the casted one, wrapped as Maybe&lt;TR&gt;, otherwise Nothing
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TR"></typeparam>
-    /// <param name="a"></param>
-    /// <returns></returns>
     public static Maybe<TR> MaybeCast<T, TR>(this T a) where TR : T =>
       MaybeFunctionalWrappers.Catcher<T, TR, InvalidCastException>(o => (TR) o)(a);
 
